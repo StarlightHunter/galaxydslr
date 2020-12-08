@@ -1,0 +1,33 @@
+[tool.black]
+line-length = 88
+target-version = ['py36', 'py37', 'py38']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | env
+)/
+'''
+
+[tool.poetry]
+name = "galaxydslr"
+version = "0.2.0"
+description = "DSLR control for astrophotography"
+authors = ["Oliver Gutiérrez <ogutsua@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = ">3.6"
+Flask = ">=1.0.2"
+gphoto2= ">=1.9.0"
+HamlPy3 = "^0.84.0"
+
+[tool.poetry.dev-dependencies]

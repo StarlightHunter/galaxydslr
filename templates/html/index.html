@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes"
+    />
+
+    <title>GalaxyDSLR</title>
+    <meta name="theme-color" content="#000000" />
+    <meta name="msapplication-navbutton-color" content="#000000" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#000000" />
+    <link rel="icon" href="/static/img/icons/32x32.png" />
+    <link rel="icon" href="/static/img/icons/192x192.png" />
+    <link rel="apple-touch-icon-precompose" href="/static/img/icons/180x180.png" />
+    <link rel="msapplication-TileImage" href="/static/img/icons/270x270.png" />
+
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/static/css/open-iconic-bootstrap.min.css" />
+    <link rel="stylesheet" href="/static/css/main.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <nav id="sidebar">
+        <div class="sidebar-header">
+          <div class="logo text-center">
+            <img src="/static/img/logo-red.svg" width="100%" />
+          </div>
+        </div>
+        <div class="sidebar-section">
+          <h5>Camera</h5>
+          <div class="content">
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label" for="camera_list"> Dev. </label>
+              <div class="col-sm-8">
+                <select id="camera_list" class="form-control" disabled="true">
+                  <option>---</option>
+                </select>
+              </div>
+              <button
+                id="reload_cameras_button"
+                class="btn btn-secondary"
+                type="button"
+              >
+                <span class="oi oi-reload"></span>
+              </button>
+            </div>
+            <div class="form-group row mx-0">
+              <button
+                id="camera_connection_button"
+                class="btn btn-secondary col-6"
+                type="button"
+              >
+                Connect
+              </button>
+              <input
+                id="camera_connection_status"
+                class="form-control-plaintext col-6 text-right status_disabled"
+                type="text"
+                value="Disconnected"
+              />
+            </div>
+            <div id="camera_settings" class="collapse">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label" for="exposure"> Exposure </label>
+                <div class="col-sm-8">
+                  <input id="exposure" class="form-control" type="number" value="1" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label" for="aperture"> Aperture </label>
+                <div class="col-sm-8">
+                  <select id="aperture" class="form-control"></select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label" for="iso"> ISO </label>
+                <div class="col-sm-8">
+                  <select id="iso" class="form-control"></select>
+                </div>
+              </div>
+              <div class="form-group row mx-0">
+                <button
+                  id="camera_preview_button"
+                  class="btn btn-secondary col-12"
+                  type="button"
+                >
+                  Preview
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="capture_controls" class="sidebar-section collapse">
+          <h5>Capture</h5>
+          <div class="content">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label" for="captures"> Number </label>
+              <div class="col-sm-8">
+                <input id="captures" class="form-control" type="number" value="10" />
+              </div>
+            </div>
+            <div class="form-group row mx-0">
+              <button
+                id="capture_toggle_button"
+                class="btn btn-secondary col-2"
+                type="button"
+              >
+                <span class="oi oi-media-play"></span>
+              </button>
+              <input
+                id="capture_status"
+                class="form-control-plaintext col-10 text-right color-default"
+                type="text"
+                value="- / -"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-section">
+          <h5>Guiding</h5>
+          <div class="content">
+            <div class="form-group row mx-0">
+              <button
+                id="guider_connection_button"
+                class="btn btn-secondary col-6"
+                type="button"
+              >
+                Connect
+              </button>
+              <input
+                id="guider_connection_status"
+                class="form-control-plaintext col-6 text-right status_disabled"
+                type="text"
+                value="Disconnected"
+              />
+            </div>
+            <div id="guider_settings" class="collapse">
+              <div class="form-group form-check mx-0">
+                <label class="col-sm-10 form-check-label" for="dither">
+                  Enable dither
+                </label>
+                <input id="dither" class="form-check-input" type="checkbox" />
+              </div>
+              <div class="form-group row">
+                <label class="col-6 col-form-label" for="dither_n"> Dither # </label>
+                <div class="col-6">
+                  <input id="dither_n" class="form-control" type="number" value="1" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-6 col-form-label" for="dither_px"> Dither px </label>
+                <div class="col-6">
+                  <input id="dither_px" class="form-control" type="number" value="3" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-6 col-form-label" for="settle_px"> Settle px </label>
+                <div class="col-6">
+                  <input id="settle_px" class="form-control" type="number" value="2" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-6 col-form-label" for="settle_time">
+                  Settle time
+                </label>
+                <div class="col-6">
+                  <input
+                    id="settle_time"
+                    class="form-control"
+                    type="number"
+                    value="10"
+                  />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-6 col-form-label" for="settle_timeout">
+                  Settle timeout
+                </label>
+                <div class="col-6">
+                  <input
+                    id="settle_timeout"
+                    class="form-control"
+                    type="number"
+                    value="100"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="main">
+        <nav id="status_bar" class="navbar">
+          <button id="sidebar_toggler" class="btn btn-danger" type="button">
+            <span>
+              <span class="oi oi-arrow-left"></span>
+            </span>
+          </button>
+        </nav>
+        <div id="content">
+          <div id="imagearea">
+            <img id="current_image" src="/static/img/dummy_capture.jpg" />
+          </div>
+          <div id="logarea"></div>
+        </div>
+      </div>
+    </div>
+    <div id="initial_loading">
+      <div class="text-center">
+        <img src="/static/img/logo-red.svg" width="100%" />
+        <br />
+        <div class="spinner"></div>
+      </div>
+    </div>
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/main.js"></script>
+  </body>
+</html>

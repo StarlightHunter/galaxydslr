@@ -1,0 +1,200 @@
+-# (c) 2020 Oliver Gutierrez <ogutsua@gmail.com>
+
+!!!
+
+%html
+    %head
+        -# Encoding and viewport
+        %meta{:charset => "utf-8"}
+        %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, user-scalable=yes"}
+
+        -# Title and description
+        %title
+            GalaxyDSLR
+
+        -# Theming and icons
+        %meta{:name => "theme-color", :content => "#000000"}
+        %meta{:name => "msapplication-navbutton-color", :content => "#000000"}
+        %meta{:name => "apple-mobile-web-app-status-bar-style", :content => "#000000"}
+        %link{:rel => "icon", :href => "/static/img/icons/32x32.png"}
+        %link{:rel => "icon", :href => "/static/img/icons/192x192.png"}
+        %link{:rel => "apple-touch-icon-precompose", :href => "/static/img/icons/180x180.png"}
+        %link{:rel => "msapplication-TileImage", :href => "/static/img/icons/270x270.png"}
+
+        -# Stylesheets
+        %link{:rel => "stylesheet", :href => "/static/css/bootstrap.min.css"}
+        %link{:rel => "stylesheet", :href => "/static/css/open-iconic-bootstrap.min.css"}
+        %link{:rel => "stylesheet", :href => "/static/css/main.css"}
+
+    %body
+        .wrapper
+            -# Left column
+            %nav#sidebar
+                .sidebar-header
+                    .logo.text-center
+                        %img{:src => "/static/img/logo-red.svg", :width => "100%"}
+
+                .sidebar-section
+                    %h5
+                        Camera
+                    .content
+                        .form-group.row
+                            %label.col-sm-2.col-form-label{:for => "camera_list"}
+                                Dev.
+                            .col-sm-8
+                                %select#camera_list.form-control{:disabled => "true"}
+                                    %option
+                                        \---
+                            %button#reload_cameras_button.btn.btn-secondary{:type => "button"}
+                                    %span.oi.oi-reload
+
+                        .form-group.row.mx-0
+                            %button#camera_connection_button.btn.btn-secondary.col-6{:type => "button"}
+                                Connect
+                            %input#camera_connection_status.form-control-plaintext.col-6.text-right.status_disabled{:type => "text", :value => "Disconnected"}
+
+
+                        #camera_settings.collapse
+                            .form-group.row
+                                %label.col-sm-4.col-form-label{:for => "exposure"}
+                                    Exposure
+                                .col-sm-8
+                                    %input#exposure.form-control{:type => "number", :value => "1"}
+
+                            .form-group.row
+                                %label.col-sm-4.col-form-label{:for => "aperture"}
+                                    Aperture
+                                .col-sm-8
+                                    %select#aperture.form-control
+
+                            .form-group.row
+                                %label.col-sm-4.col-form-label{:for => "iso"}
+                                    ISO
+                                .col-sm-8
+                                    %select#iso.form-control
+
+                            .form-group.row.mx-0
+                                %button#camera_preview_button.btn.btn-secondary.col-12{:type => "button"}
+                                    Preview
+
+                #capture_controls.sidebar-section.collapse
+                    %h5
+                        Capture
+                    .content
+                        -# .form-group.row
+                        -#     %label.col-sm-4.col-form-label{:for => "capturetype"}
+                        -#         Type
+                        -#     .col-sm-8
+                        -#         %select#capturetype.form-control
+                        -#             %option
+                        -#                 Light
+                        -#             %option
+                        -#                 Dark
+                        -#             %option
+                        -#                 Flat
+                        -#             %option
+                        -#                 Bias
+
+                        .form-group.row
+                            %label.col-sm-4.col-form-label{:for => "captures"}
+                                Number
+                            .col-sm-8
+                                %input#captures.form-control{:type => "number", :value => "10"}
+
+                        .form-group.row.mx-0
+                            %button#capture_toggle_button.btn.btn-secondary.col-2{:type => "button"}
+                                %span.oi.oi-media-play
+                                -# %span.oi.oi-media-stop
+                            %input#capture_status.form-control-plaintext.col-10.text-right.color-default{:type => "text", :value => "- / -"}
+
+                .sidebar-section
+                    %h5
+                        Guiding
+
+                    .content
+                        .form-group.row.mx-0
+                            %button#guider_connection_button.btn.btn-secondary.col-6{:type => "button"}
+                                Connect
+                            %input#guider_connection_status.form-control-plaintext.col-6.text-right.status_disabled{:type => "text", :value => "Disconnected"}
+
+                        #guider_settings.collapse
+                            -# .form-group.row
+                            -#     %label.col-sm-4.col-form-label{:for => "guidingprofile"}
+                            -#         Profile
+                            -#     .col-sm-8
+                            -#         %select#guiding_profiles.form-control
+                            -#             %option
+                            -#                 Simulator
+                            -#             %option
+                            -#                 Main
+                            -#             %option
+                            -#                 OAG
+
+                            .form-group.form-check.mx-0
+                                %label.col-sm-10.form-check-label{:for => "dither"}
+                                    Enable dither
+                                %input#dither.form-check-input{:type => "checkbox"}
+
+                            .form-group.row
+                                %label.col-6.col-form-label{:for => "dither_n"}
+                                    Dither #
+                                .col-6
+                                    %input#dither_n.form-control{:type => "number", :value => "1"}
+
+                            .form-group.row
+                                %label.col-6.col-form-label{:for => "dither_px"}
+                                    Dither px
+                                .col-6
+                                    %input#dither_px.form-control{:type => "number", :value => "3"}
+
+                            .form-group.row
+                                %label.col-6.col-form-label{:for => "settle_px"}
+                                    Settle px
+                                .col-6
+                                    %input#settle_px.form-control{:type => "number", :value => "2"}
+
+                            .form-group.row
+                                %label.col-6.col-form-label{:for => "settle_time"}
+                                    Settle time
+                                .col-6
+                                    %input#settle_time.form-control{:type => "number", :value => "10"}
+
+                            .form-group.row
+                                %label.col-6.col-form-label{:for => "settle_timeout"}
+                                    Settle timeout
+                                .col-6
+                                    %input#settle_timeout.form-control{:type => "number", :value => "100"}
+
+                            -# .form-group.row.mx-0
+                            -#     %button.btn.btn-secondary.col-2{:type => "button"}
+                            -#         %span.oi.oi-reload
+                            -#     &nbsp;
+                            -#     %button.btn.btn-secondary.col-2{:type => "button"}
+                            -#         %span.oi.oi-crosshair
+
+
+
+            #main
+
+                %nav#status_bar.navbar
+                    %button#sidebar_toggler.btn.btn-danger{:type => "button"}
+                        %span
+                            %span.oi.oi-arrow-left
+
+                #content
+                    -# Image and histogram
+                    #imagearea
+                        %img#current_image{:src => "/static/img/dummy_capture.jpg"}
+
+                    #logarea
+
+        #initial_loading
+            .text-center
+                %img{:src => "/static/img/logo-red.svg", :width => "100%"}
+                %br
+                .spinner
+
+        -# App scripts
+        %script{:src => "/static/js/jquery-3.3.1.min.js"}
+        %script{:src => "/static/js/bootstrap.min.js"}
+        %script{:src => "/static/js/main.js"}
